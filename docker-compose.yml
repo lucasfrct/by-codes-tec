@@ -1,36 +1,92 @@
 ## Environment NODE
 version: "3"
 services:
-  environment:
-    container_name: environment-node
-    image: environment-node
-    hostname: environment-node
+
+# ## SERVER PUBLIC ##
+#   environment-public:
+#     container_name: ${HOSTNAME}-public
+#     image: ${HOSTNAME}-public
+#     hostname: ${HOSTNAME}-public
+#     labels:
+#       description: ${HOSTNAME}-public
+#     build: 
+#       context: ./
+#       dockerfile: Dockerfile
+#       target: by-codes-tec-public
+#     volumes:
+#       - .:/usr/${HOSTNAME}
+#       - local-volume:/usr/${HOSTNAME}/*
+#     env_file:
+#       - ./.env
+#     environment:
+#       NODE_ENV: development
+#     command: npm run dev:public
+#     networks:
+#       - local-network
+#     restart: always
+#     ports:
+#       - ${PUBLIC_PORT}:${PUBLIC_PORT}
+
+# ## SERVER PUBLIC ##
+#   environment-api:
+#     container_name: ${HOSTNAME}-api
+#     image: ${HOSTNAME}-api
+#     hostname: ${HOSTNAME}-api
+#     labels:
+#       description: ${HOSTNAME}-api
+#     build: 
+#       context: ./
+#       dockerfile: Dockerfile
+#       target: by-codes-tec-api
+#     volumes:
+#       - .:/usr/${HOSTNAME}
+#       - local-volume:/usr/${HOSTNAME}/*
+#     env_file:
+#       - ./.env
+#     environment:
+#       NODE_ENV: development
+#     command: npm run dev:api
+#     networks:
+#       - local-network
+#     restart: always
+#     ports:
+#       - ${API_PORT}:${API_PORT}
+  
+## SERVER MYSQL ##
+  environment-msql:
+    container_name: ${HOSTNAME}-mysql
+    image: ${HOSTNAME}-mysql
+    hostname: ${HOSTNAME}-mysql
     labels:
-      description: environment-node
-      org.opencontainers.image.name: environment-node
-      org.opencontainers.image.authors: Lucas Costa
-      org.opencontainers.image.hostname: environment-node
-      com.docker.volume.name: environment-node
-      com.docker.network.bridge.name: environment-node
+      description: ${HOSTNAME}-mysql
     build: 
       context: ./
       dockerfile: Dockerfile
+      target: environment-mysql
+    working_dir: /var/lib/mysql
     volumes:
-      - .:/usr/environment-node
+      - ./data:/var/lib/mysql
+      - local-mysql:/var/lib/mysql/*
     env_file:
       - ./.env
     environment:
-      NODE_ENV: development
-    command: npm run dev
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: "Alterar123"
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+    command: --default-authentication-plugin=mysql_native_password
     networks:
-      - local-network
+      local-network:
     restart: always
     ports:
-      - 3000:3000
+      - ${MYSQL_PORT}:3306 # host:container
 volumes:
   local-volume:
-    name: environment-node
+    name: ${HOSTNAME}-volume
+  local-mysql:
+    name: ${HOSTNAME}-mysql
 networks:
   local-network:
-    name: environment-node
+    name: ${HOSTNAME}-network
     driver: bridge
