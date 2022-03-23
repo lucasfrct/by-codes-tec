@@ -5,8 +5,8 @@
     "main": "index.js",
     "scripts": {
         "start": "docker-compose up --build -d; && node index.js",
-        "dev:public": "nodemon -L src/server.public.js",
-        "dev:api": "nodemon -L src/server.api.js",
+        "dev:public": "nodemon -L public/server.public.js",
+        "dev:api": "nodemon -L api/server.api.js",
         "dev:up": "docker-compose up --build",
         "dev:down": "docker-compose down -v --rmi all",
         "migrate": "npx sequelize-cli db:migrate"
@@ -15,7 +15,8 @@
     "license": "ISC",
     "_moduleAliases": {
         "@root": ".",
-        "@src": "./src"
+        "@api": "./api/src",
+        "@public": "./public"
     },
     "dependencies": {
         "@banco-br/nodejs-cnab": "^0.2.0",

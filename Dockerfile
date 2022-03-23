@@ -14,7 +14,8 @@ COPY package*.json ./
 RUN npm install
 
 ## Copia projeto
-COPY . .
+COPY ./public  ./public
+COPY ./.env .
 
 ## porta de acesso
 EXPOSE 3000 
@@ -38,7 +39,8 @@ COPY package*.json ./
 RUN npm install
 
 ## Copia projeto
-COPY . .
+COPY ./api  ./api
+COPY ./.env .
 
 ## porta de acesso
 EXPOSE 5000 
@@ -47,10 +49,10 @@ EXPOSE 5000
 CMD ["npm", "run", "dev:api"]
 
 # ! Derivando da imagem oficial do MySQL
-FROM mysql:5.7 AS environment-mysql
+FROM mysql:5.7 AS by-codes-tec-mysql
 
-LABEL org.label-schema.name=environment-mysql
-LABEL description="environment-mysql"
+LABEL org.label-schema.name="by-codes-tec-mysql"
+LABEL description="by-codes-tec-mysql"
 
 ## Enviroment
 ENV MYSQL_ALLOW_EMPTY_PASSWORD="yes"
@@ -63,6 +65,6 @@ ENV MYSQL_PASSWORD="Alterar123"
 WORKDIR /var/lib/mysql
 
 ## PORT
-EXPOSE 3306
+EXPOSE 3306:3307
 
 CMD ["--default-authentication-plugin=mysql_native_password"]
