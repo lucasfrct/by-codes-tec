@@ -2,21 +2,21 @@
   "development": {
     "username": "development",
     "password": "Alterar123",
-    "database": "by-code-tec",
+    "database": "development",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
-    "username": "test",
+    "username": "development",
     "password": "Alterar123",
-    "database": "by_code_tec",
+    "database": "development",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
-    "username": "production",
+    "username": "development",
     "password": "Alterar123",
-    "database": "by_code_tec",
+    "database": "development",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
