@@ -12,7 +12,7 @@ module.exports = async(req, res) => {
     const Cnab = await Cnabs.findByPk(id) || {};
     const keys = Object.keys(body);
     keys.forEach((key) =>{ Cnab[key] = body[key] });  
-    cnab = Cnab.save() || {};
+    cnab = await Cnab.save() || {};
   }
 
   res.json(cnab);

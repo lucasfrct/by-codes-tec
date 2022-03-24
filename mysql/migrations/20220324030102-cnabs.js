@@ -7,7 +7,7 @@ module.exports = {
       id: { allowNull: false, autoIncrement: true, primaryKey: true, type: DataTypes.INTEGER,},
       type: { allowNull: true, type: DataTypes.STRING(2), },
       kind: { allowNull: true, type: DataTypes.STRING, },
-      amount: { allowNull: true, type: DataTypes.STRING, },
+      amount: { allowNull: true, type: DataTypes.DECIMAL, },
       description: { allowNull: true, type: DataTypes.TEXT, },
       cpf: { allowNull: true, type: DataTypes.STRING(11), },
       card: { allowNull: true, type: DataTypes.STRING(12), },

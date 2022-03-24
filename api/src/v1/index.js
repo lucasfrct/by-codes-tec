@@ -2,36 +2,18 @@ const router = require('express').Router();
 
 const Healthz = require('./healthz');
 
-const ListUsers = require('./list-users');
-const CreateUser = require('./create-user');
-const ReadUser = require('./read-user');
-const UpdateUser = require('./update-user');
-const DeleteUser = require('./delete-user');
-
 const CreateCnabs = require('./create-cnabs');
 const ListCnabs = require('./list-cnabs');
 const ListCnabsByCpf = require('./list-cnabs-by-cpf');
+const ListCnabsByCompany = require('./list-cnabs-by-company');
 const ReadCnab = require('./read-cnab');
 const UpdateCnab = require('./update-cnab');
-const DeleteCnab = require("./delete-cnab")
+const DeleteCnab = require("./delete-cnab");
+
+const BalanceCPF = require('./balance-cpf');
 
 // health check
 router.get("/healthz", Healthz);
-
-// list Users
-router.get('/users', ListUsers);
-
-// create user
-router.post('/user', CreateUser);
-
-// read user
-router.get('/user/:id', ReadUser);
-
-// update user
-router.put('/user/:id', UpdateUser);
-
-// delete user
-router.delete('/user/:id', DeleteUser);
 
 // create cnabs
 router.post('/cnabs', CreateCnabs);	
@@ -42,6 +24,9 @@ router.get('/cnabs', ListCnabs);
 // list cnabs by cpf
 router.get('/cnabs/:cpf', ListCnabsByCpf);	
 
+// list cnabs by company
+router.get('/cnabs/company/:company', ListCnabsByCompany);	
+
 // read cnab by id
 router.get('/cnab/:id', ReadCnab);	
 
@@ -51,7 +36,6 @@ router.put('/cnab/:id', UpdateCnab);
 // delete cnab by Id
 router.delete('/cnab/:id', DeleteCnab);	
 
-
-
+router.get('/balance/:cpf', BalanceCPF);	
 
 module.exports = router;

@@ -73,8 +73,7 @@ class Cnab {
   }
 
   parseAmount(amount) {
-    const a = parseFloat(Number(parseInt(amount, 10)) / 100) || 0
-    return a.toFixed(2)
+    return Number(parseInt(amount, 10)) || 0
   }
 
   parseHour(date, time) {
