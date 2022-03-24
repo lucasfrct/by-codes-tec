@@ -11,9 +11,12 @@ const logger = pino(stream)
 
 const app = express();
 
-app.get("/healthz", (req, res) => {
-    res.send("UP");
-});
+app.use(express.static(`${__dirname}/`));
+
+
+app.get("/healthz", (req, res) => { res.send("UP"); });
+app.get("/", (req, res) => { res.sendFile("index.html"); });
+
 
 app.listen(process.env.PUBLIC_PORT,()=>{
   logger.info(`port: ${process.env.PUBLIC_PORT}`);

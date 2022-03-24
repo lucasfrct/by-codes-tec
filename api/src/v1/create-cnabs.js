@@ -6,14 +6,13 @@ module.exports = async(req, res) => {
   
   let result = [];
   const body = req.body;
-  
-  const cnab = new Cnab('CNAB.txt');
-  const cnabs = await cnab.load();
 
-  for await (content of cnabs) {
-    let feedback = await Cnabs.create(content);	
-    result.push(feedback);
+  if(!!body && body?.length > 0) {
+    for await (cnab of body) {
+      let feedback = await Cnabs.create(cnab);	
+      result.push(feedback);
+    }
   }
 
-  res.json(result);
+  res.status(201);
 }
