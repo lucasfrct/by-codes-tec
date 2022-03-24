@@ -1,41 +1,57 @@
 const router = require('express').Router();
 
-const { User } = require('../models');
+const Healthz = require('./healthz');
 
-router.get('/users', async(req, res) => {
-  const users = await User.findAll();
-  res.json(users);
-});
+const ListUsers = require('./list-users');
+const CreateUser = require('./create-user');
+const ReadUser = require('./read-user');
+const UpdateUser = require('./update-user');
+const DeleteUser = require('./delete-user');
 
-router.post('/users', async(req, res) => {
-  const user = await User.create(req.body);
-  res.json(user);
-});
+const CreateCnabs = require('./create-cnabs');
+const ListCnabs = require('./list-cnabs');
+const ListCnabsByCpf = require('./list-cnabs-by-cpf');
+const ReadCnab = require('./read-cnab');
+const UpdateCnab = require('./update-cnab');
+const DeleteCnab = require("./delete-cnab")
 
-router.get('/users/:id', async(req, res) => {
-  const user = await User.findByPk(req.params.id);
-  res.json(user);
-});
+// health check
+router.get("/healthz", Healthz);
+
+// list Users
+router.get('/users', ListUsers);
+
+// create user
+router.post('/user', CreateUser);
+
+// read user
+router.get('/user/:id', ReadUser);
+
+// update user
+router.put('/user/:id', UpdateUser);
+
+// delete user
+router.delete('/user/:id', DeleteUser);
+
+// create cnabs
+router.post('/cnabs', CreateCnabs);	
+
+// list all cnabs
+router.get('/cnabs', ListCnabs);	
+
+// list cnabs by cpf
+router.get('/cnabs/:cpf', ListCnabsByCpf);	
+
+// read cnab by id
+router.get('/cnab/:id', ReadCnab);	
+
+// update cnabs by id
+router.put('/cnab/:id', UpdateCnab);
+
+// delete cnab by Id
+router.delete('/cnab/:id', DeleteCnab);	
 
 
-router.put('/users/:id', async(req, res) => {
-  const user = await User.findByPk(req.params.id);
-  user.email = "asdf@asdf@asdf@.com"
-  const resultadoSave = await user.save();
-  res.json(resultadoSave);
-
-});
-
-router.delete('/users/:id', async(req, res) => {
-  const user = await User.findByPk(req.params.id);
-  const result = await user.destroy();
-  res.json(result);
-});
-
-router.post('/register', async (req, res) => {
-  const user = await User.create(req.body);
-  res.json(user);
-});
 
 
 module.exports = router;

@@ -2,15 +2,16 @@ require('dotenv/config');
 require('module-alias/register');
 
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const logger = require('./src/shared/logger')
 const Routes = require('./src/v1');
 const app = express();
 
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.raw());
 app.use("/", Routes);
-
-app.get("/healthz", (req, res) => { res.send("UP"); });
 
 app.listen(process.env.API_PORT,()=>{
   logger.info(`port: ${process.env.API_PORT}`);
